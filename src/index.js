@@ -15,11 +15,10 @@ module.exports.pitch = function pitch(request) {
     this.cacheable()
   }
 
-  const insertCss = require.resolve('./insertCss.js')
   return `
     var refs = 0;
     var css = require(${stringifyRequest(this, `!!${request}`)});
-    var insertCss = require(${stringifyRequest(this, `!${insertCss}`)});
+    var insertCss = require(${stringifyRequest(this, 'isomorphic-style-loader/insertCss.js')});
     var content = typeof css === 'string' ? [[module.id, css, '']] : css;
 
     exports = module.exports = css.locals || {};
